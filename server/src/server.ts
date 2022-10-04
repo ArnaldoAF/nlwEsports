@@ -1,4 +1,6 @@
 import express, { response } from "express";
+import cors from 'cors';
+
 import { PrismaClient } from "@prisma/client";
 import { convertHourToMinute } from "./utils/convertHourToMinute";
 import { convertMinuteToHour } from "./utils/convertMinuteToHour";
@@ -6,6 +8,10 @@ import { convertMinuteToHour } from "./utils/convertMinuteToHour";
 const app = express();
 // permite o express entender requisições feitas em Json
 app.use(express.json());
+
+// permite que os front-ends acessem a api
+// para permitir um front especifico, adicione {origin : 'http'}
+app.use(cors());
 
 const prisma = new PrismaClient({
   log: ["query"],
