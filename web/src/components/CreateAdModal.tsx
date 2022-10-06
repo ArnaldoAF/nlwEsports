@@ -2,8 +2,21 @@ import { Input } from "./Form/input";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Check, GameController, MagnifyingGlassPlus } from "phosphor-react";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { useEffect, useState } from "react";
+
+interface Game {
+  id: string;
+  title: string;
+}
 
 export function CreateAdModal() {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3333/games")
+      .then((response) => response.json())
+      .then((data) => setGames(data));
+  }, []);
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
@@ -17,8 +30,22 @@ export function CreateAdModal() {
             <label htmlFor="game" className="font-semibold">
               Qual o game?
             </label>
-            <Input id="game" placeholder="Selecione o game que deseja jogar" />
+            <select
+              id="game"
+              placeholder="Selecione o game que deseja jogar"
+              className="bg-zinc-900 py-4 px-3 rounded text-small placeholder:text-zinc-500 appearance-none"
+            >
+              <option disabled selected value="">
+                Selecione o game que deseja jogar
+              </option>
+
+              {games.map(game => {
+                return <option value={game.id} key={game.id}>{game.title}</option>
+                
+              })}
+            </select>
           </div>
+
           <div className="flex flex-col gap-2">
             <label htmlFor="name">Seu nome ou nick</label>
             <Input type="text" placeholder="Como te chamam dentro do game?" />
@@ -79,7 +106,7 @@ export function CreateAdModal() {
           <div className="mt-2 flex gap-2 text-small">
             <Checkbox.Root className="w-6 h-6 p-1 rounded bg-zinc-900">
               <Checkbox.Indicator>
-                <Check className="w-4 h-4 text-emerald-400"/>
+                <Check className="w-4 h-4 text-emerald-400" />
               </Checkbox.Indicator>
             </Checkbox.Root>
             Costumo me conectar ao chat de voz
