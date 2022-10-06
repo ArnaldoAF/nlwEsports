@@ -12,6 +12,7 @@ import { GameParams } from "../../@types/navigation";
 import { THEME } from "../../theme";
 import { Heading } from "../../components/Heading";
 import { DuoCard, DuoCardProps } from "../../components/DuoCard";
+import { DuoMatch } from "../../components/DuoMatch";
 
 interface RouteParams {
   id: string;
@@ -24,9 +25,16 @@ export function Game() {
   const game = route.params as GameParams;
   const navigation = useNavigation();
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
+  const [discordDuoSelected, setDiscordDuoSelected] = useState('');
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  async function getDiscordUser(adsId: string){
+    fetch(`http://192.168.1.4:3333/ads/${adsId}/discord`)
+    .then((response) => response.json())
+    .then((data) => setDiscordDuoSelected(data.discord));
   }
 
   useEffect(() => {
@@ -58,16 +66,26 @@ export function Game() {
         <FlatList
           data={duos}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <DuoCard data={item} onConnect={() => {}}/>}
+          renderItem={({ item }) => (
+            <DuoCard data={item} onConnect={() => {getDiscordUser(item.id)}} />
+          )}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={[duos.length > 0 ? styles.contentList : styles.emptyListContent]}
+          contentContainerStyle={[
+            duos.length > 0 ? styles.contentList : styles.emptyListContent,
+          ]}
           style={styles.containerList}
-          ListEmptyComponent={(() => (
+          ListEmptyComponent={() => (
             <Text style={styles.emptyListText}>
               Não há anuncios publicados para esse jogo
             </Text>
-          ))}
+          )}
+        />
+
+        <DuoMatch 
+          visible={!!discordDuoSelected.length}
+          discord={discordDuoSelected}
+          onClose={() => setDiscordDuoSelected('')}
         />
       </SafeAreaView>
     </Background>
