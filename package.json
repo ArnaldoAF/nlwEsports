@@ -1,0 +1,19 @@
+{
+  "name": "nlwesports",
+  "version": "1.0.0",
+  "description": "NextLevelWeek eSports",
+  "scripts": {
+    "web": "cd web && npm run dev",
+    "server": "cd server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArnaldoAF/nlwEsports.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArnaldoAF/nlwEsports/issues"
+  },
+  "homepage": "https://github.com/ArnaldoAF/nlwEsports#readme"
+}
