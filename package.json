@@ -4,7 +4,11 @@
   "description": "NextLevelWeek eSports",
   "scripts": {
     "web": "cd web && npm run dev",
-    "server": "cd server && npm run dev"
+    "mobile": "cd mobile && expo start",
+    "server": "cd server && npm run dev",
+    "web-install": "cd web && npm i",
+    "mobile-install": "cd mobile && npm i",
+    "server-install": "cd server && npm i"
   },
   "repository": {
     "type": "git",
