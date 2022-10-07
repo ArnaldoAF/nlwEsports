@@ -31,7 +31,7 @@ Rodar o comando no diretorio raiz:
 npm run server
 ```
 ### Rodar o Front-end
-
+ 
 
 Rodar o comando no diretorio raiz:
 ```
@@ -66,4 +66,3 @@ Os links abaixo foram citados nas aulas, achei interessante anotar eles:
  - https://keen-slider.io/ (Componente de slider)
  - https://ariakit.org/ (Componentes para React)
  - https://headlessui.com/ (Componentes para React)
- - 
